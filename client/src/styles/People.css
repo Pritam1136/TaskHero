@@ -1,0 +1,33 @@
+.people {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 70%;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.image {
+  height: 50px;
+  width: 50px;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+img {
+  margin-left: 5px;
+}
+.indiPeople {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 95%;
+  background-color: #fff;
+  border-radius: 20px;
+  border: 1px solid gray;
+}
+
+.personName {
+  font-family: monospace;
+  font-size: 20px;
+  padding-right: 5px;
+}

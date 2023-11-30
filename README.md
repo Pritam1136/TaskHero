@@ -1,1 +1,1 @@
-# Threaded conversation app
+# MERN social media app

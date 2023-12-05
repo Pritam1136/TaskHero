@@ -9,6 +9,8 @@ export default function Login() {
   const password = useRef();
   const { user, isFetching, error, dispatch } = useContext(AuthContext);
 
+  console.log(user);
+
   const handleClick = (e) => {
     e.preventDefault();
     loginCall(
@@ -17,7 +19,6 @@ export default function Login() {
     );
   };
 
-  console.log(user);
   return (
     <div className="login">
       <div className="loginWrapper">

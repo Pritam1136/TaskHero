@@ -1,11 +1,28 @@
 /* eslint-disable no-unused-vars */
-import React from "react";
+import React, { useEffect, useState } from "react";
 import "./rightbar.css";
 import { Users } from "../../dummyData";
 import Online from "../online/Online";
+import axios from "axios";
+import { Link } from "react-router-dom";
 
 export default function Rightbar({ user }) {
   const PF = process.env.REACT_APP_PUBLIC_FOLDER;
+
+  const [friends, setFriends] = useState([]);
+
+  useEffect(() => {
+    const getFriends = async () => {
+      try {
+        const friendList = await axios.get(`/users/friends/${user?._id}`);
+        setFriends(friendList.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getFriends();
+  }, [user?._id]);
+
   const HomeRightbar = () => {
     return (
       <>
@@ -25,6 +42,7 @@ export default function Rightbar({ user }) {
       </>
     );
   };
+
   const ProfileRightbar = () => {
     return (
       <>
@@ -55,30 +73,21 @@ export default function Rightbar({ user }) {
         </div>
         <h4 className="rightbarTitle">User friends</h4>
         <div className="rightbarFollowings">
-          <div className="rightbarFollowing">
-            <img
-              src={`${PF}person/4.jpeg`}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">Tina</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src={`${PF}person/3.jpeg`}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">koala</span>
-          </div>
-          <div className="rightbarFollowing">
-            <img
-              src={`${PF}person/2.jpeg`}
-              alt=""
-              className="rightbarFollowingImg"
-            />
-            <span className="rightbarFollowingName">white</span>
-          </div>
+          {friends?.map((friend) => (
+            <Link
+              to={"/profile/" + friend.username}
+              style={{ textDecoration: "none" }}
+            >
+              <div className="rightbarFollowing">
+                <img
+                  src={`${PF}person/4.jpeg`}
+                  alt=""
+                  className="rightbarFollowingImg"
+                />
+                <span className="rightbarFollowingName">{friend.username}</span>
+              </div>
+            </Link>
+          ))}
         </div>
       </>
     );

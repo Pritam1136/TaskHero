@@ -9,6 +9,7 @@ const authroute = require("./routes/auth");
 const postRoute = require("./routes/posts");
 const app = express();
 const multer = require("multer");
+const path = require("path");
 
 dotenv.config();
 
@@ -18,6 +19,8 @@ try {
 } catch (err) {
   console.error(err);
 }
+
+app.use("/images", express.static(path.join(__dirname, "public/images")));
 
 // middlewares
 app.use(express.json());
@@ -30,7 +33,7 @@ const storage = multer.diskStorage({
     cb(null, "public/images");
   },
   filename: (req, file, cb) => {
-    cb(null, file.originalname);
+    cb(null, req.body.name);
   },
 });
 

@@ -21,6 +21,7 @@ try {
 }
 
 app.use("/images", express.static(path.join(__dirname, "public/images")));
+app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 
 // middlewares
 app.use(express.json());

@@ -1,9 +1,11 @@
+/* eslint-disable react/jsx-no-duplicate-props */
 import React, { useContext, useRef, useState } from "react";
 import "./share.css";
 import PermMediaIcon from "@mui/icons-material/PermMedia";
 import LabelIcon from "@mui/icons-material/Label";
 import LightIcon from "@mui/icons-material/Light";
 import TagFacesIcon from "@mui/icons-material/TagFaces";
+import Cancel from "@mui/icons-material/Cancel";
 import { AuthContext } from "../../context/AuthContext";
 import axios from "axios";
 
@@ -29,7 +31,6 @@ export default function Share() {
 
       try {
         await axios.post("/upload", data);
-        window.location.reload();
       } catch (error) {
         console.log(error);
       }
@@ -40,6 +41,7 @@ export default function Share() {
     } catch (error) {
       console.error(error);
     }
+    window.location.reload();
   };
 
   return (
@@ -63,6 +65,12 @@ export default function Share() {
           />
         </div>
         <hr className="shareHr" />
+        {file && (
+          <div className="shareImgContainer">
+            <img className="shareImg" src={URL.createObjectURL(file)} alt="" />
+            <Cancel className="shareCancelImg" onClick={() => setFile(null)} />
+          </div>
+        )}
         <form className="shareBottom" onSubmit={submitHandler}>
           <div className="shareOptions">
             <label htmlFor="file" className="shareOption">
